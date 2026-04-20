@@ -1,0 +1,390 @@
+/* ============================================
+   NAVBAR - Suhail Mohammad Al Zarooni
+   ============================================ */
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ffffff;
+  padding: 10px 24px;
+  width: 100%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  box-sizing: border-box;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* ── Left: Logo ── */
+.navbar-left {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.logo {
+  height: 95px;
+  width: auto;
+  transition: height 0.3s ease;
+}
+
+/* ── Middle: Title + Links ── */
+.navbar-middle {
+  text-align: center;
+  flex-grow: 1;
+  padding: 0 16px;
+}
+
+.navbar-title {
+  font-size: 48px;
+  font-family: "Old English Text MT", "UnifrakturMaguntia", "MedievalSharp", serif;
+  color: #021264;
+  font-weight: bold;
+  margin: 0 0 6px 0;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 2.2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.nav-link {
+  text-decoration: none;
+  font-size: 17px;
+  font-family: 'Poppins', sans-serif;
+  color: #001366;
+  letter-spacing: 0.01em;
+  transition: color 0.25s, text-decoration 0.25s;
+  white-space: nowrap;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  color: #520000;
+}
+
+.navbar-links-active {
+  text-decoration: underline !important;
+  text-underline-offset: 8px;
+  color: #520000 !important;
+  font-weight: 600;
+}
+
+/* ── Right: Actions ── */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.subscribe-button {
+  background-color: #520000;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  white-space: nowrap;
+}
+
+.subscribe-button:hover {
+  background-color: #001366;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.notification-icon img {
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.profile-icon img.nav-profile-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+  opacity: 0.9;
+  transition: opacity 0.2s, transform 0.2s;
+  border: 1.5px solid #001366;
+}
+
+.profile-icon img.nav-profile-img:hover {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+.notification-icon img:hover,
+.profile-icon img:hover {
+  opacity: 1;
+}
+
+/* Hamburger menu icon - hidden on desktop */
+.menu-icon {
+  display: none;
+  font-size: 26px;
+  cursor: pointer;
+  color: #001366;
+  line-height: 1;
+  padding: 4px;
+  user-select: none;
+}
+
+/* ============================================
+   OVERLAY (mobile backdrop)
+   ============================================ */
+.menu-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 98;
+}
+
+.menu-overlay.open {
+  display: block;
+}
+
+/* ============================================
+   MODAL
+   ============================================ */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  background: white;
+  padding: 32px 28px 24px;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  width: 360px;
+  max-width: 90vw;
+  position: relative;
+  animation: modalIn 0.2s ease;
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: translateY(-16px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: stretch;
+}
+
+.modal-content h2 {
+  margin: 0;
+  font-family: "Old English Text MT", serif;
+  color: #001366;
+  font-size: 24px;
+  text-align: center;
+}
+
+.modal input {
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.modal input:focus {
+  border-color: #001366;
+}
+
+.modal .modal-submit {
+  padding: 10px 20px;
+  background-color: #520000;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  transition: background-color 0.3s;
+}
+
+.modal .modal-submit:hover {
+  background-color: #001366;
+}
+
+.modal-message {
+  text-align: center;
+  font-size: 13px;
+  color: #555;
+}
+
+.close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 22px;
+  cursor: pointer;
+  color: #666;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.close:hover {
+  color: #520000;
+}
+
+/* ============================================
+   RESPONSIVE — 1024px
+   ============================================ */
+@media screen and (max-width: 1024px) {
+  .navbar-title {
+    font-size: 28px;
+  }
+
+  .nav-link {
+    font-size: 13px;
+  }
+
+  .navbar-links {
+    gap: 1rem;
+  }
+
+  .logo {
+    height: 65px;
+  }
+}
+
+/* ============================================
+   RESPONSIVE — 768px (tablet / hamburger)
+   ============================================ */
+@media screen and (max-width: 768px) {
+  .navbar {
+    padding: 10px 16px;
+    flex-wrap: nowrap;
+  }
+
+  .navbar-middle {
+    flex-grow: 1;
+    padding: 0 10px;
+  }
+
+  .navbar-title {
+    font-size: 22px;
+    white-space: normal;
+  }
+
+  /* Hide nav links by default; shown via drawer */
+  .navbar-links {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 240px;
+    background: #ffffff;
+    flex-direction: column;
+    gap: 0;
+    padding: 80px 0 24px;
+    box-shadow: 4px 0 16px rgba(0, 0, 0, 0.15);
+    z-index: 99;
+    overflow-y: auto;
+    animation: drawerIn 0.25s ease;
+  }
+
+  @keyframes drawerIn {
+    from {
+      transform: translateX(-100%);
+    }
+
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  .navbar-links.open {
+    display: flex;
+  }
+
+  .navbar-links .nav-link {
+    padding: 14px 28px;
+    font-size: 16px;
+    border-bottom: 1px solid #f0f0f0;
+    text-align: left;
+  }
+
+  .navbar-links .nav-link:last-child {
+    border-bottom: none;
+  }
+
+  .menu-icon {
+    display: block;
+    order: -1;
+    /* place it leftmost in navbar-right */
+  }
+
+  .logo {
+    height: 52px;
+  }
+
+  .subscribe-button {
+    font-size: 12px;
+    padding: 7px 10px;
+  }
+}
+
+/* ============================================
+   RESPONSIVE — 480px (mobile)
+   ============================================ */
+@media screen and (max-width: 480px) {
+  .navbar-title {
+    font-size: 17px;
+  }
+
+  .logo {
+    height: 42px;
+  }
+
+  .notification-icon img,
+  .profile-icon img {
+    width: 22px;
+    height: 22px;
+  }
+
+  .subscribe-button {
+    font-size: 11px;
+    padding: 6px 8px;
+    letter-spacing: 0.03em;
+  }
+
+  .navbar-right {
+    gap: 6px;
+  }
+}

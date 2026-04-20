@@ -1,0 +1,35 @@
+/* Carousel.css */
+.carousel-container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 40px 0;
+  }
+  
+  .slick-slide {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    gap:1rem;
+  }
+  
+  .carousel-item {
+    display: flex !important; 
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    gap: 2rem;
+  }
+  
+ 
+  
+  /* Optional: Make the cards responsive for different screen sizes */
+  @media (max-width: 768px) {
+    .carousel-container {
+      width: 95%;
+    }
+  
+    .slick-prev, .slick-next {
+      font-size: 20px;
+    }
+  }
+  

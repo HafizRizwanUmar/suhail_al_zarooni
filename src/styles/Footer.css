@@ -1,0 +1,141 @@
+.footer-section {
+  background-color: #ffffff;
+  color: #001366;
+  padding: 20px 20px 10px;
+  font-family: 'Poppins', sans-serif;
+  border-top: 1px solid #e0e0e0;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.footer-column {
+  flex: 1;
+}
+
+.footer-column:first-child {
+  flex: 1.5;
+}
+
+.footer-title {
+  font-family: "Old English Text MT", serif;
+  font-size: 32px;
+  margin-bottom: 20px;
+  color: #001366;
+  text-align: left;
+}
+
+.footer-description {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  max-width: 400px;
+}
+
+.footer-heading {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  color: #001366;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 12px;
+}
+
+.footer-links a {
+  text-decoration: none;
+  color: #001366;
+  font-size: 15px;
+  transition: color 0.3s;
+}
+
+.footer-links a:hover {
+  color: #520000;
+}
+
+.footer-socials {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #520000;
+  padding: 8px;
+  transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+  background-color: #520000;
+  filter: brightness(0) invert(1);
+}
+
+.social-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.footer-signature {
+  max-width: 150px;
+  margin-top: 10px;
+  opacity: 0.6;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 20px;
+  border-top: 1px solid #e0e0e0;
+  font-size: 14px;
+  color: #666;
+}
+
+.footer-bottom p {
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .footer-section {
+    padding: 40px 20px 20px;
+  }
+  
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 30px;
+  }
+  
+  .footer-description {
+    margin: 0 auto;
+  }
+
+  .footer-socials {
+    justify-content: center;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+}

@@ -1,0 +1,75 @@
+.rewards-section {
+  background-color: #000c40;
+  color: #fff;
+  padding: 60px 80px;
+  font-family: 'Inter', sans-serif;
+}
+
+.rewards-section h2 {
+  font-family: "Old English Text MT", serif;
+  font-size: 42px;
+  color: #ffffff;
+  margin-bottom: 40px;
+  font-weight: 400;
+  text-align: center;
+}
+
+.rewards-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.reward-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 25px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.reward-item:last-child {
+  border-bottom: none;
+}
+
+.reward-left {
+  flex: 0 0 250px;
+}
+
+.reward-left h3 {
+  font-size: 16px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+}
+
+.reward-right {
+  flex: 1;
+}
+
+.reward-right h4 {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 10px 0;
+}
+
+.reward-right p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .reward-item {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .reward-left {
+    flex: none;
+  }
+
+  .rewards-section {
+    padding: 40px 20px;
+  }
+}

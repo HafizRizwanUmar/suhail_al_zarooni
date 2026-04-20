@@ -1,0 +1,206 @@
+
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+.heroSec {
+    width: 100%;
+    padding: 100px 40px;
+    background: radial-gradient(circle at top right, #00124e 0%, #000c40 50%, #000320 100%);
+    position: relative;
+    overflow: hidden;
+    color: #fff;
+    text-align: center; /* Center aligns all child elements like the badge */
+}
+
+.heroSec::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("https://www.transparenttextures.com/patterns/dust.png");
+    opacity: 0.15;
+    pointer-events: none;
+}
+
+/* Floating animation for decorative elements or main image */
+@keyframes float {
+    0% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(1deg); }
+    100% { transform: translateY(0px) rotate(0deg); }
+}
+
+@keyframes fadeInScale {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #c8a96e 0%, #a68b54 100%);
+    color: #000;
+    padding: 6px 18px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0 auto 25px auto; /* Margin auto helps center with display: inline-block */
+    box-shadow: 0 4px 15px rgba(200, 169, 110, 0.3);
+    animation: fadeInScale 0.8s ease-out forwards;
+}
+
+.detail {
+    font-size: 52px;
+    font-weight: 400;
+    color: #fff;
+    margin-bottom: 60px;
+    text-align: center;
+    line-height: 1.25;
+    font-family: 'Playfair Display', serif;
+    font-style: italic; /* Added italic as requested */
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    text-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    animation: fadeInScale 1s ease-out 0.2s forwards;
+    opacity: 0;
+}
+
+.hero-logo-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background: transparent;
+}
+
+.logo-desc-sec {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.logo-detail {
+    font-size: 18px;
+    line-height: 1.8;
+    margin-bottom: 40px;
+    text-align: left;
+    color: rgba(255, 255, 255, 0.9);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+}
+
+.logos {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.logo-carousel {
+    display: flex;
+    gap: 15px;
+    overflow: hidden;
+}
+
+.logo-item {
+    width: 180px; /* Bigger logos */
+    height: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.4s ease;
+}
+
+.logo-item:hover {
+    transform: translateY(-8px) scale(1.05); /* More dynamic hover */
+}
+
+.logo-item img {
+    max-width: 95%; /* Use more of the space */
+    max-height: 95%;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2)); /* Added depth */
+}
+
+.nav-button {
+    background: rgba(200, 169, 110, 0.1); /* Professional glass look */
+    color: #c8a96e;
+    border: 1px solid #c8a96e;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 20px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.nav-button:hover {
+    background: #c8a96e;
+    color: #000;
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(200, 169, 110, 0.4);
+}
+
+.Zarooni-img {
+    flex: 0 0 400px;
+    position: relative;
+    animation: float 6s ease-in-out infinite;
+}
+
+.Zarooni-img::after {
+    content: "";
+    position: absolute;
+    bottom: -20px;
+    left: 10%;
+    width: 80%;
+    height: 40px;
+    background: radial-gradient(ellipse at center, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0) 70%);
+    border-radius: 50%;
+    z-index: -1;
+}
+
+.Zarooni-img img {
+    width: 100%;
+    height: auto;
+    border-radius: 40px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+    object-fit: cover;
+    border: 1px solid rgba(200, 169, 110, 0.3);
+}
+
+@media (max-width: 1024px) {
+    .detail {
+        font-size: 32px;
+    }
+    .logo-section {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 40px;
+    }
+
+    .logo-detail {
+        text-align: center;
+    }
+    
+    .logos {
+        justify-content: center;
+    }
+
+    .Zarooni-img {
+        flex: 1;
+        width: 100%;
+        max-width: 350px;
+    }
+}
+

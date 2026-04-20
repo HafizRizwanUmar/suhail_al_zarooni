@@ -1,0 +1,52 @@
+.palace-section {
+  text-align: center;
+  background-color: #fff;
+  padding: 80px 40px;
+  color: #000c40;
+}
+
+.palace-text-container {
+  margin-bottom: 40px;
+}
+
+.palace-section h2 {
+  font-family: "Old English Text MT", serif;
+  font-size: 56px;
+  margin: 0;
+  line-height: 1.1;
+  font-weight: 400;
+  color: #000c40;
+}
+
+.palace-section p {
+  font-family: 'Inter', sans-serif;
+  margin: 20px 0;
+  font-size: 16px;
+  color: #666;
+}
+
+.palace-video-container {
+  display: block;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+}
+
+.palace-video {
+  width: 100%;
+  display: block;
+  outline: none;
+}
+
+@media (max-width: 768px) {
+  .palace-section h2 {
+    font-size: 32px;
+  }
+
+  .palace-section {
+    padding: 40px 20px;
+  }
+}
