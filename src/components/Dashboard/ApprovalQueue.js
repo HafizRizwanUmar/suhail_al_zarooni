@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import { Table, Button, Tag, Space, Modal, notification } from 'antd';
 import { CheckCircleOutlined, CloseCircleOutlined, EyeOutlined, ReloadOutlined } from '@ant-design/icons';
@@ -10,7 +10,7 @@ const ApprovalQueue = () => {
     const [loading, setLoading]     = useState(false);
     const [preview, setPreview]     = useState({ open: false, title: '', content: '', id: null });
 
-    const fetchPending = async () => {
+    const fetchPending = useCallback(async () => {
         setLoading(true);
         try {
             const res = await axios.get('http://localhost:5000/articles?all=true', {
@@ -22,9 +22,9 @@ const ApprovalQueue = () => {
         } finally {
             setLoading(false);
         }
-    };
+    }, [token]);
 
-    useEffect(() => { fetchPending(); }, []);
+    useEffect(() => { fetchPending(); }, [fetchPending]);
 
     const handleApprove = async (id) => {
         try {

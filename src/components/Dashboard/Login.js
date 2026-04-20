@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Form, Input, Button, notification, Typography, Switch } from 'antd';
-import { UserOutlined, LockOutlined, ArrowLeftOutlined } from '@ant-design/icons';
+import { Form, Input, Button, notification, Switch } from 'antd';
+import { ArrowLeftOutlined } from '@ant-design/icons';
 import './Login.css';
 import { useAuth } from '../../context/AuthContext';
 
-const { Title, Text } = Typography;
+// Typography imports removed as unused
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
@@ -109,7 +109,7 @@ const Login = () => {
                 <Switch size="small" defaultChecked />
                 <span>Remember sign in details</span>
               </div>
-              <a href="#" className="forgot-link">Forgot password?</a>
+              <a href="#!" className="forgot-link">Forgot password?</a>
             </div>
 
             <Form.Item>
@@ -125,7 +125,7 @@ const Login = () => {
           </Form>
 
           <p className="login-footer">
-            Admin access only. Don't have an account? <Link to="#" className="signup-link">Contact Admin</Link>
+            Admin access only. Don't have an account? <Link to="#!" className="signup-link">Contact Admin</Link>
           </p>
         </div>
       </div>

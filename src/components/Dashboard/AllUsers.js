@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Table, Button, Space, Modal, Form, Input, Select, notification, Tag } from 'antd';
 import { PlusOutlined, DeleteOutlined, ReloadOutlined } from '@ant-design/icons';
 import axios from 'axios';
@@ -30,7 +30,7 @@ const UserManagement = () => {
 
   const [file, setFile] = useState(null);
 
-  const fetchUsers = async () => {
+  const fetchUsers = useCallback(async () => {
     setLoading(true);
     try {
       const res = await axios.get('http://localhost:5000/allUsers', {
@@ -42,9 +42,9 @@ const UserManagement = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [token]);
 
-  useEffect(() => { fetchUsers(); }, []);
+  useEffect(() => { fetchUsers(); }, [fetchUsers]);
 
   const handleCreate = async (values) => {
     const formData = new FormData();

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { motion } from 'framer-motion';
-import ContributorCard from './ContributorCard';
 import '../../styles/Contributors.css';
 
 const TopContributors = ({ limit = 3, showHeader = true }) => {

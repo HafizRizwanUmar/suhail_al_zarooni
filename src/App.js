@@ -7,7 +7,6 @@ import {
 } from "react-router-dom";
 import AddArticle from "./components/Dashboard/AddArticle";
 import Article from "./components/Dashboard/AllArticle";
-import Users from "./components/Dashboard/AllUsers";
 import About from "./components/About/About";
 import AdminDashboard from "./components/Dashboard/Dashboard";
 import Login from "./components/Dashboard/Login";

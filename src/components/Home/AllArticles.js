@@ -7,6 +7,16 @@ import "../../styles/ArticlesCarousel.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+const CATEGORY_MAP = {
+  "Al Zarooni Foundation": "foundation",
+  "Al Zarooni Events": "event",
+  "Al Zarooni Media": "media",
+  "Al Zarooni Museum": "museum",
+  "Al Zarooni Collection": "collection",
+  "Al Zarooni Meetup": "meetup",
+};
+
+
 const AllArticles = ({ selectedCategory }) => {
   const [articles, setArticles] = useState([]);
   const [filteredArticles, setFilteredArticles] = useState([]);
@@ -47,14 +57,6 @@ const AllArticles = ({ selectedCategory }) => {
     ],
   };
 
-  const categoryMap = {
-    "Al Zarooni Foundation": "foundation",
-    "Al Zarooni Events": "event",
-    "Al Zarooni Media": "media",
-    "Al Zarooni Museum": "museum",
-    "Al Zarooni Collection": "collection",
-    "Al Zarooni Meetup": "meetup",
-  };
 
   useEffect(() => {
     const fetchArticles = async () => {
@@ -75,7 +77,7 @@ const AllArticles = ({ selectedCategory }) => {
     if (selectedCategory === "All Articles") {
       setFilteredArticles(articles);
     } else {
-      const dbValue = categoryMap[selectedCategory];
+      const dbValue = CATEGORY_MAP[selectedCategory];
       const filtered = articles.filter(
         (article) => article.category && article.category.toLowerCase() === dbValue
       );

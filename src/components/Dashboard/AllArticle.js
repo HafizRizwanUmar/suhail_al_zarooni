@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import { Table, Button, Tag, Space, Modal, notification, Image } from "antd";
 import { ReloadOutlined, EyeOutlined, CheckOutlined, DeleteOutlined, ReadOutlined } from "@ant-design/icons";
@@ -27,14 +27,14 @@ const ArticleList = () => {
   const [loading, setLoading]   = useState(false);
   const [preview, setPreview]   = useState({ open: false, content: "", title: "" });
 
-  const fetchArticles = async () => {
+  const fetchArticles = useCallback(async () => {
     setLoading(true);
     try {
       const response = await axios.get("http://localhost:5000/articles?all=true", {
         headers: { Authorization: `Bearer ${token}` },
       });
       let data = response.data.data;
-      if (user.role === "editor" || user.role === "contributor") {
+      if (user?.role === "editor" || user?.role === "contributor") {
         data = data.filter((a) => a.user?._id === user.id || a.user === user.id);
       }
       setArticles(data);
@@ -43,9 +43,9 @@ const ArticleList = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [token, user]);
 
-  useEffect(() => { fetchArticles(); }, []);
+  useEffect(() => { fetchArticles(); }, [fetchArticles]);
 
   const handleApprove = async (id) => {
     try {

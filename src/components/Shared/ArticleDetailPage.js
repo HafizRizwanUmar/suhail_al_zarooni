@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import {
@@ -14,7 +14,7 @@ import {
     CalendarOutlined,
     ClockCircleOutlined,
 } from '@ant-design/icons';
-import { Button, notification, Tooltip } from 'antd';
+import { notification, Tooltip } from 'antd';
 import Navbar from '../Home/NavBar';
 import Footer from '../Home/Footer';
 import { useAuth } from '../../context/AuthContext';
@@ -296,7 +296,7 @@ const Skeleton = () => (
 ───────────────────────────────────────────── */
 const ArticleDetailPage = () => {
     const { id } = useParams();
-    const { token, user } = useAuth();
+    useAuth(); // Context call remained for potential side effects or future use, but removed unused destructuring
     const navigate = useNavigate();
     const [article, setArticle] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -319,7 +319,7 @@ const ArticleDetailPage = () => {
 
     const [author, setAuthor] = useState(null);
 
-    const fetchArticle = async () => {
+    const fetchArticle = useCallback(async () => {
         try {
             const [artRes, usersRes] = await Promise.all([
                 axios.get(`http://localhost:5000/articles?all=true`),
@@ -347,9 +347,9 @@ const ArticleDetailPage = () => {
             console.error(err);
             setLoading(false);
         }
-    };
+    }, [id, navigate, deviceId]);
 
-    useEffect(() => { fetchArticle(); }, [id]);
+    useEffect(() => { fetchArticle(); }, [fetchArticle]);
 
     const handleLike = async () => {
         try {
