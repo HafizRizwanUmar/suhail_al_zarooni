@@ -123,7 +123,7 @@ const overlayStyle = {
 const modalStyle = {
     backgroundColor: '#fff',
     borderRadius: '24px',
-    maxWidth: '800px',
+    maxWidth: '700px',
     width: '100%',
     position: 'relative',
     overflow: 'hidden',
@@ -131,7 +131,7 @@ const modalStyle = {
 };
 
 const modalContentStyle = {
-    padding: '40px'
+    padding: '30px'
 };
 
 const closeBtnStyle = {
@@ -146,27 +146,27 @@ const closeBtnStyle = {
 
 const titleStyle = {
     fontFamily: '"Old English Text MT", serif',
-    fontSize: '48px',
+    fontSize: '36px',
     color: '#00124e',
     textAlign: 'center',
-    marginBottom: '10px'
+    marginBottom: '8px'
 };
 
 const subtitleStyle = {
     textAlign: 'center',
     color: '#666',
-    fontSize: '16px',
-    marginBottom: '40px'
+    fontSize: '14px',
+    marginBottom: '25px'
 };
 
 const optionsGridStyle = {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-    gap: '30px'
+    gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+    gap: '20px'
 };
 
 const optionCardStyle = {
-    padding: '30px',
+    padding: '20px',
     borderRadius: '20px',
     backgroundColor: '#f9f9fb',
     display: 'flex',

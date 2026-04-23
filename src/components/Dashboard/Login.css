@@ -26,8 +26,9 @@
 .login-left {
   flex: 1.2;
   position: relative;
-  background: url('./login-bg.png') no-repeat center center;
+  background: url('./zarooni-bg.jpg') no-repeat center center;
   background-size: cover;
+  background-position: 70% center; /* Adjust to focus on him */
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
