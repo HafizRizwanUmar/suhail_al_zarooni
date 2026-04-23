@@ -186,7 +186,7 @@ app.post("/articles", verifyToken, async (req, res) => {
       { folder: "articles" }
     );
 
-    const newArticle = new ArticleModel({
+    const newArticleDoc = new ArticleModel({
       title,
       slug: generateSlug(title),
       user: userId, 
@@ -199,8 +199,29 @@ app.post("/articles", verifyToken, async (req, res) => {
       isApproved: req.user.role === 'admin' || req.user.role === 'super_admin' 
     });
 
-    await newArticle.save();
-    res.status(201).json({message: "Article submitted successfully", data: newArticle});
+    await newArticleDoc.save();
+
+    // Sync to data.json
+    const userDoc = await Users.findById(userId);
+    const newArticleJSON = {
+      ...newArticleDoc.toObject(),
+      user: userDoc ? {
+        _id: userDoc._id,
+        firstName: userDoc.firstName,
+        lastName: userDoc.lastName,
+        role: userDoc.role
+      } : { _id: userId }
+    };
+
+    const dataPath = path.join(__dirname, "data.json");
+    let articles = [];
+    if (fs.existsSync(dataPath)) {
+      articles = JSON.parse(fs.readFileSync(dataPath, "utf-8"));
+    }
+    articles.push(newArticleJSON);
+    fs.writeFileSync(dataPath, JSON.stringify(articles, null, 2));
+
+    res.status(201).json({message: "Article submitted successfully", data: newArticleDoc});
   } catch (err) {
     console.error("Error adding article:", err);
     res.status(500).json({message: "Server error"});
@@ -210,7 +231,19 @@ app.post("/articles", verifyToken, async (req, res) => {
 // New Analytics Routes
 app.put("/articles/:id/view", async (req, res) => {
   try {
-    await ArticleModel.findByIdAndUpdate(req.params.id, { $inc: { views: 1 } });
+    const article = await ArticleModel.findByIdAndUpdate(req.params.id, { $inc: { views: 1 } }, { new: true });
+    
+    // Sync to data.json
+    const dataPath = path.join(__dirname, "data.json");
+    if (fs.existsSync(dataPath)) {
+      const articles = JSON.parse(fs.readFileSync(dataPath, "utf-8"));
+      const index = articles.findIndex(a => a._id.toString() === req.params.id);
+      if (index !== -1) {
+        articles[index].views = (articles[index].views || 0) + 1;
+        fs.writeFileSync(dataPath, JSON.stringify(articles, null, 2));
+      }
+    }
+    
     res.json({ message: "View counted" });
   } catch (error) {
     res.status(500).json({ message: "Error" });
@@ -236,6 +269,19 @@ app.post("/articles/:id/like", async (req, res) => {
     }
 
     await article.save();
+
+    // Sync to data.json
+    const dataPath = path.join(__dirname, "data.json");
+    if (fs.existsSync(dataPath)) {
+      const articles = JSON.parse(fs.readFileSync(dataPath, "utf-8"));
+      const jsonIndex = articles.findIndex(a => a._id.toString() === req.params.id);
+      if (jsonIndex !== -1) {
+        articles[jsonIndex].likes = article.likes;
+        articles[jsonIndex].likedBy = article.likedBy;
+        fs.writeFileSync(dataPath, JSON.stringify(articles, null, 2));
+      }
+    }
+
     res.json({ likes: article.likes, liked: index === -1 });
   } catch (error) {
     res.status(500).json({ message: "Error" });
@@ -248,16 +294,21 @@ app.get("/admin/stats", verifyToken, async (req, res) => {
     const userId = req.user.userId;
     const role = req.user.role;
 
-    let query = {};
-    if (role === 'editor' || role === 'contributor') {
-      query = { user: userId };
+    const dataPath = path.join(__dirname, "data.json");
+    let articles = [];
+    if (fs.existsSync(dataPath)) {
+      articles = JSON.parse(fs.readFileSync(dataPath, "utf-8"));
     }
 
-    const articles = await ArticleModel.find(query);
+    // Filter by user if not admin
+    if (role === 'editor' || role === 'contributor') {
+      articles = articles.filter(a => (a.user?._id || a.user) === userId);
+    }
+
     const totalArticles = articles.length;
     const totalViews = articles.reduce((sum, art) => sum + (art.views || 0), 0);
     const totalLikes = articles.reduce((sum, art) => sum + (art.likes || 0), 0);
-    const pendingApprovals = await ArticleModel.countDocuments({ isApproved: false, ...query });
+    const pendingApprovals = articles.filter(a => !a.isApproved).length;
 
     res.json({
       totalArticles,
@@ -266,28 +317,36 @@ app.get("/admin/stats", verifyToken, async (req, res) => {
       pendingApprovals
     });
   } catch (error) {
+    console.error("Stats error:", error);
     res.status(500).json({ message: "Error fetching stats" });
   }
 });
 
 app.get("/articles", async (req, res) => {
-  console.log("Articles request received. DB Status:", mongoose.connection.readyState);
+  console.log("Articles request received. Reading from data.json");
   try {
-    if (mongoose.connection.readyState !== 1) {
-      throw new Error("Database not connected");
+    const dataPath = path.join(__dirname, "data.json");
+    if (!fs.existsSync(dataPath)) {
+      return res.status(200).json({ data: [] });
     }
+    
+    const fileContent = fs.readFileSync(dataPath, "utf-8");
+    let articles = JSON.parse(fileContent);
 
     // Admins can see everything with ?all=true
+    // For the JSON file, we'll implement simple filtering
     const showAll = req.query.all === 'true';
-    const query = showAll ? {} : { isApproved: true };
+    if (!showAll) {
+      articles = articles.filter(a => a.isApproved);
+    }
     
-    const articles = await ArticleModel.find(query)
-      .populate('user')
-      .sort({ createdAt: -1 }); 
+    // Sort by createdAt descending
+    articles.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
     res.status(200).json({ data: articles });
   } catch (err) {
-    res.status(500).json({ message: "Error fetching articles" });
+    console.error("Error reading data.json:", err);
+    res.status(500).json({ message: "Error fetching articles from file" });
   }
 });
 
@@ -302,16 +361,27 @@ app.put("/articles/:id/approve", verifyToken, checkRole(["admin", "super_admin"]
     article.status = 'approved';
     await article.save();
 
+    // Sync to data.json
+    const dataPath = path.join(__dirname, "data.json");
+    if (fs.existsSync(dataPath)) {
+      const articles = JSON.parse(fs.readFileSync(dataPath, "utf-8"));
+      const index = articles.findIndex(a => a._id.toString() === id);
+      if (index !== -1) {
+        articles[index].isApproved = true;
+        articles[index].status = 'approved';
+        fs.writeFileSync(dataPath, JSON.stringify(articles, null, 2));
+      }
+    }
+
     // Trigger Notifications
     await sendEmailToSubscribers(article);
     
-    // Create in-app notification for all contributors/subscribers
+    // Create in-app notification
     const notification = new Notifications({
       message: `New Article Published: ${article.title}`,
       type: 'article',
       link: `/article/${article.slug}`
     });
-    
     await notification.save();
     
     res.json({message: `Article approved successfully`});
@@ -328,6 +398,14 @@ app.delete("/articles/:id", verifyToken, checkRole(["admin", "super_admin"]), as
 
     if (!deletedArticle) {
       return res.status(404).json({message: "Article not found"});
+    }
+
+    // Sync to data.json
+    const dataPath = path.join(__dirname, "data.json");
+    if (fs.existsSync(dataPath)) {
+      let articles = JSON.parse(fs.readFileSync(dataPath, "utf-8"));
+      articles = articles.filter(a => a._id.toString() !== id);
+      fs.writeFileSync(dataPath, JSON.stringify(articles, null, 2));
     }
 
     res.status(200).json({message: "Article deleted successfully"});
