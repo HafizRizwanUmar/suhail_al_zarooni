@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { motion } from 'framer-motion';
-import './Login.css'; // Reuse basic login styles
+import './LegacySignup.css';
 
 const LegacySignup = () => {
     const navigate = useNavigate();
@@ -49,70 +49,76 @@ const LegacySignup = () => {
     };
 
     return (
-        <div className="login-container" style={{ minHeight: '100vh', padding: '40px 0' }}>
+        <div className="legacy-signup-container">
             <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="login-card" 
-                style={{ maxWidth: '600px', width: '90%' }}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="legacy-card"
             >
-                <div className="login-header">
-                    <h2 style={{ fontFamily: '"Old English Text MT", serif', fontSize: '32px' }}>Legacy Program Signup</h2>
+                <div className="legacy-header">
+                    <h2>Legacy Program Signup</h2>
                     <p>Enter your details and Gumroad license key to join.</p>
                 </div>
 
-                <form className="login-form" onSubmit={handleSubmit}>
-                    <div style={gridStyle}>
+                <form className="legacy-form" onSubmit={handleSubmit}>
+                    <div className="form-row">
                         <div className="form-group">
                             <label>First Name</label>
-                            <input type="text" name="firstName" required onChange={handleChange} />
+                            <input type="text" name="firstName" placeholder="e.g. John" required onChange={handleChange} />
                         </div>
                         <div className="form-group">
                             <label>Last Name</label>
-                            <input type="text" name="lastName" required onChange={handleChange} />
+                            <input type="text" name="lastName" placeholder="e.g. Doe" required onChange={handleChange} />
                         </div>
                     </div>
 
-                    <div className="form-group">
-                        <label>Email Address</label>
-                        <input type="email" name="email" required onChange={handleChange} />
+                    <div className="form-row">
+                        <div className="form-group">
+                            <label>Email Address</label>
+                            <input type="email" name="email" placeholder="name@example.com" required onChange={handleChange} />
+                        </div>
+                        <div className="form-group">
+                            <label>Password</label>
+                            <input type="password" name="password" placeholder="••••••••" required onChange={handleChange} />
+                        </div>
                     </div>
 
-                    <div className="form-group">
-                        <label>Password</label>
-                        <input type="password" name="password" required onChange={handleChange} />
-                    </div>
-
-                    <div className="form-group" style={{ border: '2px solid #c8a96e', padding: '15px', borderRadius: '10px', background: '#fffbf2' }}>
-                        <label style={{ color: '#520000', fontWeight: '700' }}>Gumroad License Key</label>
+                    <div className="license-section">
+                        <label>Gumroad License Key</label>
                         <input 
                             type="text" 
                             name="licenseKey" 
-                            placeholder="Enter your monthly subscription key" 
+                            placeholder="XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX" 
                             required 
                             onChange={handleChange} 
-                            style={{ border: '1px solid #c8a96e' }}
                         />
-                        <p style={{ fontSize: '11px', color: '#666', marginTop: '5px' }}>Found in your Gumroad purchase receipt.</p>
+                        <p className="license-note">Found in your Gumroad purchase receipt email.</p>
                     </div>
 
                     <div className="form-group">
                         <label>Profile Picture</label>
-                        <input type="file" accept="image/*" onChange={handleFileChange} />
+                        <div className="file-input-wrapper">
+                            <input type="file" accept="image/*" onChange={handleFileChange} />
+                        </div>
                     </div>
 
                     <div className="form-group">
                         <label>Occupation</label>
-                        <input type="text" name="occuption" onChange={handleChange} />
+                        <input type="text" name="occuption" placeholder="Your profession" onChange={handleChange} />
                     </div>
 
                     <div className="form-group">
                         <label>Brief Bio / Description</label>
-                        <textarea name="description" rows="3" onChange={handleChange} style={textareaStyle}></textarea>
+                        <textarea 
+                            name="description" 
+                            rows="3" 
+                            placeholder="Tell us about yourself..."
+                            onChange={handleChange}
+                        ></textarea>
                     </div>
 
-                    <button type="submit" className="login-btn" disabled={loading}>
-                        {loading ? "Validating & Creating Account..." : "Complete Registration"}
+                    <button type="submit" className="signup-btn" disabled={loading}>
+                        {loading ? "Verifying License..." : "Complete Registration"}
                     </button>
                 </form>
             </motion.div>
