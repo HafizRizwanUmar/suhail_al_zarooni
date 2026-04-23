@@ -322,8 +322,8 @@ const ArticleDetailPage = () => {
     const fetchArticle = useCallback(async () => {
         try {
             const [artRes, usersRes] = await Promise.all([
-                axios.get(`http://localhost:5000/articles?all=true`),
-                axios.get(`http://localhost:5000/allUsers`)
+                axios.get(`https://suhail-al-zarooni-backend.vercel.app/articles?all=true`),
+                axios.get(`https://suhail-al-zarooni-backend.vercel.app/allUsers`)
             ]);
             
             const found = artRes.data.data.find(a => a._id === id || a.slug === id);
@@ -341,7 +341,7 @@ const ArticleDetailPage = () => {
             setLiked(found.likedBy?.includes(deviceId));
             setLoading(false);
             
-            axios.put(`http://localhost:5000/articles/${found._id}/view`);
+            axios.put(`https://suhail-al-zarooni-backend.vercel.app/articles/${found._id}/view`);
             document.title = `${found.title} | Suhail Al Zarooni`;
         } catch (err) {
             console.error(err);
@@ -354,7 +354,7 @@ const ArticleDetailPage = () => {
     const handleLike = async () => {
         try {
             const { data } = await axios.post(
-                `http://localhost:5000/articles/${article._id}/like`, 
+                `https://suhail-al-zarooni-backend.vercel.app/articles/${article._id}/like`, 
                 { deviceId }
             );
             setArticle({ ...article, likes: data.likes });

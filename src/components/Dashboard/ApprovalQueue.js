@@ -13,7 +13,7 @@ const ApprovalQueue = () => {
     const fetchPending = useCallback(async () => {
         setLoading(true);
         try {
-            const res = await axios.get('http://localhost:5000/articles?all=true', {
+            const res = await axios.get('https://suhail-al-zarooni-backend.vercel.app/articles?all=true', {
                 headers: { Authorization: `Bearer ${token}` },
             });
             setArticles(res.data.data.filter((a) => !a.isApproved));
@@ -28,7 +28,7 @@ const ApprovalQueue = () => {
 
     const handleApprove = async (id) => {
         try {
-            await axios.put(`http://localhost:5000/articles/${id}/approve`, {}, {
+            await axios.put(`https://suhail-al-zarooni-backend.vercel.app/articles/${id}/approve`, {}, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             notification.success({ message: 'Article approved and published.' });
@@ -40,7 +40,7 @@ const ApprovalQueue = () => {
 
     const handleReject = async (id) => {
         try {
-            await axios.delete(`http://localhost:5000/articles/${id}`, {
+            await axios.delete(`https://suhail-al-zarooni-backend.vercel.app/articles/${id}`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             notification.warning({ message: 'Article rejected and removed.' });

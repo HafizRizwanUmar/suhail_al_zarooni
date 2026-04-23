@@ -36,7 +36,7 @@ const LegacySignup = () => {
         if (image) data.append('image', image);
 
         try {
-            const res = await axios.post('http://localhost:5000/api/legacy/register', data, {
+            const res = await axios.post('https://suhail-al-zarooni-backend.vercel.app/api/legacy/register', data, {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
             toast.success(res.data.message);

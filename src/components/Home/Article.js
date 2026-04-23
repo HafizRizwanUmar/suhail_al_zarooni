@@ -12,7 +12,7 @@ const ArticlesCarousel = () => {
     // Fetch articles from the backend
     const fetchArticles = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/articles');
+        const response = await axios.get('https://suhail-al-zarooni-backend.vercel.app/articles');
         // Validate response data
         const data = Array.isArray(response.data) ? response.data : [];
         setArticles(data);
@@ -54,7 +54,7 @@ const ArticlesCarousel = () => {
         {filteredArticles.slice(0, 6).map((article) => (
           <div className="article-card" key={article._id}>
             <img
-              src={`http://localhost:5000/uploads/${article.image}`}
+              src={`https://suhail-al-zarooni-backend.vercel.app/uploads/${article.image}`}
               alt={article.title}
               className="article-image"
             />

@@ -193,7 +193,7 @@ const CategoryPage = ({ category, title }) => {
     useEffect(() => {
         const fetchArticles = async () => {
             try {
-                const { data } = await axios.get('http://localhost:5000/articles');
+                const { data } = await axios.get('https://suhail-al-zarooni-backend.vercel.app/articles');
                 const filtered = data.data.filter(
                     art => art.category?.toLowerCase() === category.toLowerCase()
                 );

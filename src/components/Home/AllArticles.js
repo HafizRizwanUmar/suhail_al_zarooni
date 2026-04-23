@@ -61,7 +61,7 @@ const AllArticles = ({ selectedCategory }) => {
   useEffect(() => {
     const fetchArticles = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/articles");
+        const response = await axios.get("https://suhail-al-zarooni-backend.vercel.app/articles");
         const fetchedArticles = response.data.data;
         setArticles(fetchedArticles);
         setLoading(false);

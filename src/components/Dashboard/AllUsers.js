@@ -33,7 +33,7 @@ const UserManagement = () => {
   const fetchUsers = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await axios.get('http://localhost:5000/allUsers', {
+      const res = await axios.get('https://suhail-al-zarooni-backend.vercel.app/allUsers', {
         headers: { Authorization: `Bearer ${token}` },
       });
       setUsers(res.data.data);
@@ -52,7 +52,7 @@ const UserManagement = () => {
     if (file) formData.append('image', file);
 
     try {
-      await axios.post('http://localhost:5000/admin/create-user', formData, {
+      await axios.post('https://suhail-al-zarooni-backend.vercel.app/admin/create-user', formData, {
         headers: { 
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data'
@@ -70,7 +70,7 @@ const UserManagement = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/user/${id}`, {
+      await axios.delete(`https://suhail-al-zarooni-backend.vercel.app/user/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       notification.success({ message: 'User removed.' });

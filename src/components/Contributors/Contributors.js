@@ -14,8 +14,8 @@ const ContributorsPage = () => {
         const fetchContributors = async () => {
             try {
                 const [usersRes, articlesRes] = await Promise.all([
-                    axios.get('http://localhost:5000/allUsers'),
-                    axios.get('http://localhost:5000/articles'),
+                    axios.get('https://suhail-al-zarooni-backend.vercel.app/allUsers'),
+                    axios.get('https://suhail-al-zarooni-backend.vercel.app/articles'),
                 ]);
 
                 const users    = usersRes.data.data;

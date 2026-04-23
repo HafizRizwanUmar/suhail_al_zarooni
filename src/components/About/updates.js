@@ -10,7 +10,7 @@ const ArticlesPage = () => {
   useEffect(() => {
     const fetchArticles = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/articles");
+        const response = await axios.get("https://suhail-al-zarooni-backend.vercel.app/articles");
         const filteredArticles = response.data.data.filter(
           (article) => article.category.toLowerCase() === "update"
         );

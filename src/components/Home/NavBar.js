@@ -17,7 +17,7 @@ const Navbar = () => {
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/notifications");
+        const res = await axios.get("https://suhail-al-zarooni-backend.vercel.app/api/notifications");
         setNotifications(res.data.data);
       } catch (err) {
         console.error("Failed to fetch notifications");

@@ -47,7 +47,7 @@ const AddArticle = () => {
     if (image) formData.append("image", image);
 
     try {
-      const response = await axios.post("http://localhost:5000/articles", formData, {
+      const response = await axios.post("https://suhail-al-zarooni-backend.vercel.app/articles", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization:  `Bearer ${token}`,

@@ -27,7 +27,7 @@ const AdminDashboard = () => {
     useEffect(() => {
         const fetchStats = async () => {
             try {
-                const { data } = await axios.get('http://localhost:5000/admin/stats', {
+                const { data } = await axios.get('https://suhail-al-zarooni-backend.vercel.app/admin/stats', {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setStats(data);

@@ -12,7 +12,7 @@ const SubscriptionModal = ({ isOpen, onClose }) => {
         e.preventDefault();
         setLoading(true);
         try {
-            const res = await axios.post('http://localhost:5000/subscribe', { email });
+            const res = await axios.post('https://suhail-al-zarooni-backend.vercel.app/subscribe', { email });
             toast.success(res.data.message);
             setEmail('');
             onClose();

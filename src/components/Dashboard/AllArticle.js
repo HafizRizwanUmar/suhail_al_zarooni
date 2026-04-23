@@ -30,7 +30,7 @@ const ArticleList = () => {
   const fetchArticles = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await axios.get("http://localhost:5000/articles?all=true", {
+      const response = await axios.get("https://suhail-al-zarooni-backend.vercel.app/articles?all=true", {
         headers: { Authorization: `Bearer ${token}` },
       });
       let data = response.data.data;
@@ -49,7 +49,7 @@ const ArticleList = () => {
 
   const handleApprove = async (id) => {
     try {
-      await axios.put(`http://localhost:5000/articles/${id}/approve`, {}, {
+      await axios.put(`https://suhail-al-zarooni-backend.vercel.app/articles/${id}/approve`, {}, {
         headers: { Authorization: `Bearer ${token}` },
       });
       notification.success({ message: "Article approved and published." });
@@ -61,7 +61,7 @@ const ArticleList = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/articles/${id}`, {
+      await axios.delete(`https://suhail-al-zarooni-backend.vercel.app/articles/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       notification.success({ message: "Article deleted." });
